@@ -1,0 +1,116 @@
+<h1>Reservations</h1>
+<!-- Modal for Updating Reservation -->
+<div *ngIf="isModalOpen" class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h4 class="modal-title">Update Reservation</h4>
+        <button type="button" class="close" (click)="closeModal()">×</button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="edit-start-date">Start Date</label>
+            <input type="datetime-local" id="edit-start-date" [(ngModel)]="editingReservation.startDate" name="startDate" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-end-date">End Date</label>
+            <input type="datetime-local" id="edit-end-date" [(ngModel)]="editingReservation.endDate" name="endDate" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-user-id">User ID</label>
+            <input type="number" id="edit-user-id" [(ngModel)]="editingReservation.userId" name="userId" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-device-id">Device ID</label>
+            <input type="number" id="edit-device-id" [(ngModel)]="editingReservation.deviceId" name="deviceId" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="saveUpdatedReservation()">Save changes</button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Reservation Table and Add Reservation Button -->
+  <div class="reservation-table-container">
+    <button class="add-reservation-btn" (click)="toggleForm()">Add Reservation</button>
+  
+    <!-- Overlay for the Form -->
+    <div *ngIf="isFormVisible" class="add-reservation-overlay">
+      <div class="add-reservation-form">
+        <h3>Add New Reservation</h3>
+  
+        <div class="form-group">
+          <label for="startDate">Start Date</label>
+          <input type="datetime-local" id="startDate" [(ngModel)]="newReservation.startDate" name="startDate" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="endDate">End Date</label>
+          <input type="datetime-local" id="endDate" [(ngModel)]="newReservation.endDate" name="endDate" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="userId">User ID</label>
+          <input type="number" id="userId" [(ngModel)]="newReservation.userId" name="userId" required>
+        </div>
+  
+        <div class="form-group">
+          <label for="deviceId">Device ID</label>
+          <input type="number" id="deviceId" [(ngModel)]="newReservation.deviceId" name="deviceId" required>
+        </div>
+  
+        <button class="submit-btn" (click)="addReservation()">Add Reservation</button>
+        <button class="cancel-btn" (click)="toggleForm()">Cancel</button>
+      </div>
+    </div>
+  
+    <!-- Reservation Table and Pagination -->
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>User ID</th>
+          <th>Device ID</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let reservation of paginatedReservations">
+          <td>{{ reservation.id }}</td>
+          <td>{{ reservation.userId }}</td>
+          <td>{{ reservation.deviceId }}</td>
+          <td>{{ reservation.startDate | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td>{{ reservation.endDate | date:'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td>{{ reservation.status }}</td>
+          <td>
+            <button class="update-btn" (click)="startUpdateReservation(reservation.id)" title="Update">
+              <i class="fas fa-pencil-alt"></i>
+            </button>
+            <button class="delete-btn" (click)="deleteReservation(reservation.id)" title="Delete">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+
+            <button  class="update-btn" (click)="rservedReservation(reservation.id)" title="reserved">
+              <p>reserved</p>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Pagination -->
+    <div class="pagination">
+      <button (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div>
+    <div class="page-text">
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+    </div>
+  </div>
+  

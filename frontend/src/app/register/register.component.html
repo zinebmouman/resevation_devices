@@ -1,0 +1,91 @@
+<h2 class="text-center">Register</h2>
+
+<div class="row justify-content-md-center mt-5">
+  <div class="col-4">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-4">Sign up</h5>
+        
+        <!-- Display success or error messages -->
+        <div *ngIf="successMessage" class="alert alert-success">
+          {{ successMessage }}
+        </div>
+        <div *ngIf="errorMessage" class="alert alert-danger">
+          {{ errorMessage }}
+        </div>
+
+        <form (ngSubmit)="registerAction()">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              [(ngModel)]="name"
+              required
+            />
+            <div *ngIf="validationErrors?.name" class="flex flex-col">
+              <small class="text-danger">{{ validationErrors.name[0] }}</small>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              [(ngModel)]="email"
+              required
+            />
+            <div *ngIf="validationErrors?.email" class="flex flex-col">
+              <small class="text-danger">{{ validationErrors.email[0] }}</small>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              [(ngModel)]="password"
+              required
+            />
+            <div *ngIf="validationErrors?.password" class="flex flex-col">
+              <small class="text-danger">{{ validationErrors.password[0] }}</small>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="confirm-password" class="form-label">Confirm Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="confirm-password"
+              name="confirm-password"
+              [(ngModel)]="confirmPassword"
+              required
+            />
+          </div>
+
+          <div class="d-grid gap-2">
+            <button
+              [disabled]="isSubmitting || !name || !email || !password || !confirmPassword"
+              type="submit"
+              class="btn btn-primary btn-block"
+            >
+              Register Now
+            </button>
+            <p class="text-center">
+              Have an account? <a href="/Auth/login">Login here</a>
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

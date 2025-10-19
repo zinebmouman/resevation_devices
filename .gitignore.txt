@@ -1,0 +1,26 @@
+# Java / Maven
+target/
+*.log
+*.iml
+.idea/
+.classpath
+.project
+.settings/
+
+# Spring Boot
+*.jar
+*.war
+
+# Node / Angular
+node_modules/
+dist/
+.angular/
+npm-debug.log*
+package-lock.json
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env

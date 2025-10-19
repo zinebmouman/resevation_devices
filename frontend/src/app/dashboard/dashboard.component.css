@@ -1,0 +1,92 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-top: 5%;
+    padding-left: 10%;
+}
+
+.bbb_deals {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.bbb_deals_title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.bbb_deals_image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.bbb_deals_info_line {
+    margin: 10px 0;
+}
+
+.bbb_deals_item_category {
+    font-size: 14px;
+    color: #555;
+}
+
+.bbb_deals_item_price_a span {
+    font-size: 16px;
+    color: #ff6f00;
+}
+
+.bbb_deals_item_name {
+    font-size: 16px;
+    color: #222;
+}
+
+.bbb_deals_item_price {
+    font-size: 16px;
+    color: #ff6f00;
+}
+
+.available {
+    margin-top: 10px;
+}
+
+.available_title {
+    font-size: 14px;
+    color: #555;
+}
+
+.sold_stars {
+    font-size: 14px;
+}
+
+.available_bar {
+    height: 5px;
+    background-color: #ddd;
+    margin-top: 5px;
+}
+
+.available_bar span {
+    background-color: #ff6f00;
+}
+
+.ribbon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ff6f00;
+    padding: 5px 10px;
+    color: white;
+    font-weight: bold;
+    border-radius: 3px;
+}
+
+.ribbon span {
+    font-size: 14px;
+}
+
+.row {
+    margin: 0;
+}
+
+.col-md-4 {
+    padding: 15px;
+}

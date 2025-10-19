@@ -1,0 +1,112 @@
+<!-- Modal for Updating Product -->
+<div *ngIf="isModalOpen" class="modal-overlay" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h4 class="modal-title">Update Product</h4>
+      <button type="button" class="close" (click)="closeModal()">×</button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="edit-name">Product Name</label>
+          <input type="text" id="edit-name" [(ngModel)]="editingProduct.name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="edit-serial-number">Serial Number</label>
+          <input type="text" id="edit-serial-number" [(ngModel)]="editingProduct.serialNumber" name="serialNumber" required>
+        </div>
+        <div class="form-group">
+          <label for="edit-department-id">Department ID</label>
+          <input type="number" id="edit-department-id" [(ngModel)]="editingProduct.departmentId" name="departmentId" required>
+        </div>
+        <div class="form-group">
+          <label for="edit-image-url">Product Image</label>
+          <input type="file" (change)="onImageChange($event)" />
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+      <button type="button" class="btn btn-primary" (click)="saveUpdatedProduct()">Save changes</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- Product Table and Add Product Button -->
+<div class="product-table-container">
+  <button class="add-product-btn" (click)="toggleForm()">Add Product</button>
+
+  <!-- Overlay for the Form -->
+  <div *ngIf="isFormVisible" class="add-product-overlay">
+    <div class="add-product-form">
+      <h3>Add New Product</h3>
+
+      <div class="form-group">
+        <label for="name">Product Name</label>
+        <input type="text" id="name" [(ngModel)]="newProduct.name" name="name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="serial_number">Serial Number</label>
+        <input type="text" id="serial_number" [(ngModel)]="newProduct.serial_number" name="serial_number" required>
+      </div>
+
+      <div class="form-group">
+        <label for="departement_id">Department ID</label>
+        <input type="number" id="departement_id" [(ngModel)]="newProduct.departement_id" name="departement_id" required>
+      </div>
+
+      <div class="form-group">
+        <label for="image_url">Product Image</label>
+        <input type="file" id="image_url" (change)="onImageSelected($event)" name="imageUrl" required>
+      </div>
+
+      <button class="submit-btn" (click)="addProduct()">Add Product</button>
+      <button class="cancel-btn" (click)="toggleForm()">Cancel</button>
+    </div>
+  </div>
+
+  <!-- Product Table and Pagination -->
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Serial Number</th>
+        <th>Department</th>
+        <th>Image</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of paginatedProducts">
+        <td>{{ product.id }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.serialNumber }}</td>
+        <td>{{ product.departmentId }}</td>
+        <td>
+          <img *ngIf="product.imageUrl" [src]="'http://localhost:8083/uploads/' + product.imageUrl" alt="{{ product.name }}" width="50">
+        </td>
+      
+      <td>
+          <button class="update-btn" (click)="startUpdateProduct(product.id)" title="Update">
+            <i class="fas fa-pencil-alt"></i>
+          </button>
+          <button class="delete-btn" (click)="deleteProduct(product.id)" title="Delete">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Pagination -->
+  <div class="pagination">
+    <button (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+  <div class="page-text">
+    <span>Page {{ currentPage }} of {{ totalPages }}</span>
+  </div>
+</div>

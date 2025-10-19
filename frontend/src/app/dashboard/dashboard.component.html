@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div *ngFor="let device of devices" class="col-md-4">
+      <div class="bbb_deals">
+        <div class="ribbon ribbon-top-right">
+          <span><small class="cross">x </small>{{ device.id }}</span>
+        </div>
+        <div class="bbb_deals_title">Device Details</div>
+        <div class="bbb_deals_slider_container">
+          <div class="bbb_deals_item">
+            <div class="bbb_deals_image">
+              <img [src]="getSafeUrl(device.imageUrl)" alt="{{ device.name }}" />
+            </div>
+            <div class="bbb_deals_content">
+              <div class="bbb_deals_info_line d-flex flex-row justify-content-start">
+                <div class="bbb_deals_item_category"><a href="#">{{ device.name }}</a></div>
+                <div class="bbb_deals_item_price_a ml-auto"><span>Serial: {{ device.serialNumber }}</span></div>
+              </div>
+              <div class="available">
+                <button class="btn btn-primary mt-2" (click)="openModal(device.id)">Add Reservation</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Reservation Modal -->
+<div *ngIf="isModalOpen" class="modal" tabindex="-1" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Reservation</h5>
+        <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addReservation(newReservation.deviceId)">
+          <div class="form-group">
+            <label for="edit-start-date">Start Date</label>
+            <input type="datetime-local" id="edit-start-date" [(ngModel)]="newReservation.startDate" name="startDate" required>
+          </div>
+          <div class="form-group">
+            <label for="edit-end-date">End Date</label>
+            <input type="datetime-local" id="edit-end-date" [(ngModel)]="newReservation.endDate" name="endDate" required>
+          </div>
+          <button type="submit" class="btn btn-success mt-3">Save Reservation</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

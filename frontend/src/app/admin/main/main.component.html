@@ -1,0 +1,15 @@
+<div class="main-layout">
+  <app-left-sidebar-admin
+    *ngIf="showAdminSidebar"
+    [isLeftSidebarCollapsed]="isLeftSidebarCollapsed"
+    (changeIsLeftSidebarCollapsed)="toggleSidebar($event)"
+  ></app-left-sidebar-admin>
+
+  <div class="main-content" [ngClass]="{ 'collapsed-content': isLeftSidebarCollapsed }">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+
+  
+  

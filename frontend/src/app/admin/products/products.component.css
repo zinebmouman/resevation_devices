@@ -1,0 +1,319 @@
+/* Product Table Container */
+/* Add Product Button */
+.add-product-button-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.add-product-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-product-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Add Product Form */
+.add-product-form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.add-product-form h3 {
+  text-align: center;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.submit-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+}
+
+.cancel-btn {
+  background-color: #f0f0f0;
+  color: #333;
+  padding: 12px 25px;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.cancel-btn:hover {
+  background-color: #ddd;
+}
+
+/* Add an overlay to center the form */
+.add-product-overlay {
+  position: fixed; /* Make the overlay take the full screen */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  display: flex;
+  justify-content: center; /* Center the form horizontally */
+  align-items: center; /* Center the form vertically */
+  z-index: 9999; /* Make sure the overlay is on top */
+}
+
+/* Add Product Form */
+.add-product-form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Button Styles */
+.add-product-btn,
+.submit-btn,
+.cancel-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.add-product-btn:hover,
+.submit-btn:hover,
+.cancel-btn:hover {
+  background-color: #0056b3;
+}
+
+.cancel-btn {
+  background-color: #f0f0f0;
+  color: #333;
+  margin-top: 10px;
+}
+
+.cancel-btn:hover {
+  background-color: #ddd;
+}
+
+.product-table-container {
+  width: 70%; /* Set the width of the table container */
+  margin: 0 auto; /* Center the table horizontally */
+  padding-left: 15%; /* Padding left to create space */
+  padding-top: 5%;
+}
+
+/* Table Styling */
+table {
+  width: 100%; /* Ensure the table takes up the full width of the container */
+  border-collapse: collapse; /* Collapsing borders */
+}
+
+th, td {
+  padding: 12px; /* Padding for cells */
+  border: 1px solid #d6e4f1; /* Light blue border */
+  text-align: center; /* Center align text */
+  font-size: 16px; /* Slightly larger text for readability */
+}
+
+th {
+  background-color: #103864; /* Blue background for the table header */
+  color: #fff; /* White text */
+  font-weight: bold; /* Bold text for headers */
+}
+
+td {
+  background-color: #f9f9f9; /* Light background color for table cells */
+  color: #333; /* Dark text color for readability */
+}
+
+/* Hover Effect for Table Rows */
+
+/* Pagination Container */
+.pagination {
+  display: flex; /* Flexbox for aligning buttons */
+  justify-content: space-between; /* Space between Prev and Next buttons */
+  margin-top: 20px; /* Space above the pagination */
+  width: 100%; /* Ensure the pagination takes the full width */
+}
+
+/* Pagination Button Styling */
+.pagination button {
+  background-color: #007bff; /* Blue background for the buttons */
+  color: white; /* White text */
+  padding: 12px 25px; /* Button padding */
+  border: none; /* Remove the border */
+  cursor: pointer; /* Change cursor on hover */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 16px; /* Increase font size */
+  transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+/* Button Hover Effect */
+.pagination button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Disabled Button Styling */
+.pagination button:disabled {
+  background-color: #c6d7f7; /* Light blue background for disabled buttons */
+  cursor: not-allowed; /* Change cursor to not-allowed for disabled buttons */
+  color: #a0b9e8; /* Light color for text when disabled */
+}
+
+/* Page Text Styling */
+.page-text {
+  margin-top: 15px;
+  text-align: center; /* Center the page text */
+  font-size: 18px; /* Larger font size for the page text */
+  color: #333; /* Dark text color */
+  font-weight: bold; /* Bold text for emphasis */
+}
+.update-btn,
+.delete-btn {
+  background-color: #007bff; /* Blue background for buttons */
+  color: white; /* White text */
+  padding: 8px 16px; /* Button padding */
+  border: none; /* Remove border */
+  font-size: 16px; /* Font size for readability */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Change cursor on hover */
+  margin-right: 10px; /* Space between buttons */
+  transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+.update-btn:hover,
+.delete-btn:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.update-btn {
+  background-color: #28a745; /* Green for update */
+}
+
+.delete-btn {
+  background-color: #dc3545; /* Red for delete */
+}
+
+/* Hover Effect for Buttons */
+.update-btn:hover {
+  background-color: #218838; /* Dark green on hover */
+}
+
+.delete-btn:hover {
+  background-color: #c82333; /* Dark red on hover */
+}
+/* Overlay styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Make sure modal is on top */
+}
+
+/* Modal content styles */
+.modal-content {
+  background-color: white;
+  border-radius: 5px;
+  padding: 20px;
+  width: 300px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-body {
+  margin-top: 10px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+button.close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+button.close:hover {
+  color: red;
+}
+
+button {
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.update-btn {
+  background-color: #4CAF50; /* Green */
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.update-btn:hover {
+  background-color: #45a049;
+}

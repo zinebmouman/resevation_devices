@@ -1,0 +1,14 @@
+<div class="app-container">
+  <app-left-sidebar 
+  *ngIf="!isAdminPage()" 
+  [isLeftSidebarCollapsed]="isLeftSidebarCollapsed()" 
+  (changeIsLeftSidebarCollapsed)="changeIsLeftSidebarCollapsed($event)">
+</app-left-sidebar>
+
+  
+  <router-outlet></router-outlet>
+</div>
+
+
+
+

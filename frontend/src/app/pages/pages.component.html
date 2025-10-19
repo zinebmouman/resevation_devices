@@ -1,0 +1,26 @@
+<!-- Display Reservations in a Table -->
+ <div class="container">
+  <h1>Reservations</h1>
+  <table *ngIf="reservations && reservations.length" border="1">
+    <thead>
+      <tr>
+        <th>Reservation ID</th>
+        <th>User ID</th>
+        <th>Device ID</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reservation of reservations">
+        <td>{{ reservation.id }}</td>
+        <td>{{ reservation.userId }}</td>
+        <td>{{ reservation.deviceId }}</td>
+        <td>{{ reservation.startDate }}</td>
+        <td>{{ reservation.endDate }}</td>
+        <td>{{ reservation.status }}</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
