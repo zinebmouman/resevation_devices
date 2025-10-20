@@ -8,8 +8,8 @@ pipeline {
 
   // ==== RENSEIGNE ICI TON ORG/PROJET SONARCLOUD ====
   environment {
-    ORG          = 'votre_org'            // ex: ibt2
-    PROJECT_KEY  = 'votre_project_key'    // ex: reservation_devices
+    ORG          = 'zinebmouman'            // ex: ibt2
+    PROJECT_KEY  = 'zinebmouman_resevation_devices'    // ex: reservation_devices
     SONAR_TOKEN  = credentials('SONAR_TOKEN') // Secret Text avec le token SonarCloud
     MAVEN_OPTS   = '-Xmx1024m'
   }
