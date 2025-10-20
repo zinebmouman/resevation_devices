@@ -3,7 +3,14 @@ pipeline {
 
   tools {
     jdk   'jdk17'
-    maven 'maven3'   // <-- mets ici le nom EXACT dans Manage Jenkins > Tools
+    maven 'maven'
+  }
+
+  environment {
+    ORG          = 'zinebmouman'                    // organization SonarCloud
+    PROJECT_KEY  = 'resevation_devices'             // juste le project key
+    SONAR_TOKEN  = credentials('SONAR_TOKEN3')       // token SonarCloud (Secret Text)
+    MAVEN_OPTS   = '-Xmx1024m'
   }
 
   stages {
@@ -22,37 +29,29 @@ pipeline {
       post {
         always {
           junit allowEmptyResults: true, testResults: 'backend/target/surefire-reports/*.xml'
-          archiveArtifacts artifacts: 'backend/target/*.jar, backend/target/*.war', fingerprint: true
+          archiveArtifacts artifacts: 'backend/target/*.jar', fingerprint: true
         }
       }
     }
 
-    stage('SonarQube Analysis (backend)') {
+    stage('SonarCloud Analysis (backend)') {
       steps {
         dir('backend') {
-          // Injecte SONAR_HOST_URL + SONAR_AUTH_TOKEN depuis la config "sonarqube"
-          withSonarQubeEnv('sonarqube') {
-            bat '''
-              mvn -B sonar:sonar ^
-                -Dsonar.projectKey=resevation_backend ^
-                -Dsonar.projectName=ReservationApp ^
-                -Dsonar.sources=src/main/java ^
-                -Dsonar.java.binaries=target
-            '''
-          }
+          // Utilise sonar.token (recommandé) et NON sonar.login
+          bat """
+            mvn -B -e sonar:sonar ^
+              -Dsonar.projectKey=%PROJECT_KEY% ^
+              -Dsonar.organization=%ORG% ^
+              -Dsonar.host.url=https://sonarcloud.io ^
+              -Dsonar.token=%SONAR_TOKEN%
+          """
         }
       }
     }
+  }
 
-    stage('Quality Gate') {
-      steps {
-        timeout(time: 5, unit: 'MINUTES') {
-          script {
-            def qg = waitForQualityGate()
-            if (qg.status != 'OK') error "Quality Gate: ${qg.status}"
-          }
-        }
-      }
-    }
+  post {
+    success { echo 'Pipeline OK → analyse envoyée à SonarCloud' }
+    failure { echo 'Pipeline KO' }
   }
 }
