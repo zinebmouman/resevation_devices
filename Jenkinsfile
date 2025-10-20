@@ -72,6 +72,17 @@ pipeline {
       }
     }
 
+    stage('Check Sonar Connectivity') {
+      steps {
+        withSonarQubeEnv('sonarqube') {
+          bat 'echo SONAR_HOST_URL=%SONAR_HOST_URL%'
+          // Vérifie le status du serveur
+          bat 'powershell -command "try { (Invoke-WebRequest %SONAR_HOST_URL%/api/system/status -UseBasicParsing).Content } catch { Write-Host $_; exit 1 }"'
+        }
+      }
+    }
+
+
     stage('Docker Build & Push (optionnel)') {
       when { expression { return fileExists('docker-compose.yml') } }
       steps {
