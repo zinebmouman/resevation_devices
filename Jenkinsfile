@@ -34,13 +34,18 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            steps {
-                dir('backend') {
-                    withSonarQubeEnv('sonarqube') {
-                        sh 'mvn sonar:sonar -Dsonar.projectKey=reservation -Dsonar.login=$SONARQUBE'
-                    }
-                }
+          steps {
+            dir('backend') {
+              withSonarQubeEnv('sonarqube') {
+                sh '''
+                  mvn -B -e sonar:sonar \
+                    -Dsonar.projectKey=reservation \
+                    -Dsonar.projectName=ReservationApp \
+                    -Dsonar.host.url=$SONAR_HOST_URL
+                '''
+              }
             }
+          }
         }
 
         stage('Docker Build & Push') {
