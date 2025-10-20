@@ -2,15 +2,14 @@ pipeline {
   agent any
 
   tools {
-    jdk   'jdk17'     // Nom du JDK dans Manage Jenkins > Tools
-    maven 'maven'     // Nom de Maven dans Manage Jenkins > Tools
+    jdk   'jdk17'
+    maven 'maven'
   }
 
-  // ==== RENSEIGNE ICI TON ORG/PROJET SONARCLOUD ====
   environment {
-    ORG          = 'zinebmouman'            // ex: ibt2
-    PROJECT_KEY  = 'zinebmouman_resevation_devices'    // ex: reservation_devices
-    SONAR_TOKEN  = credentials('SONAR_TOKEN3') // Secret Text avec le token SonarCloud
+    ORG          = 'zinebmouman'                    // organization SonarCloud
+    PROJECT_KEY  = 'resevation_devices'             // juste le project key
+    SONAR_TOKEN  = credentials('SONAR_TOKEN3')       // token SonarCloud (Secret Text)
     MAVEN_OPTS   = '-Xmx1024m'
   }
 
@@ -38,36 +37,21 @@ pipeline {
     stage('SonarCloud Analysis (backend)') {
       steps {
         dir('backend') {
+          // Utilise sonar.token (recommandé) et NON sonar.login
           bat """
             mvn -B -e sonar:sonar ^
-              -Dsonar.projectKey=%ORG%_%PROJECT_KEY% ^
+              -Dsonar.projectKey=%PROJECT_KEY% ^
               -Dsonar.organization=%ORG% ^
               -Dsonar.host.url=https://sonarcloud.io ^
-              -Dsonar.login=%SONAR_TOKEN%
+              -Dsonar.token=%SONAR_TOKEN%
           """
         }
-      }
-    }
-
-    // (Facultatif) Archiver le front si présent
-    stage('Build frontend (optionnel)') {
-      when { expression { return fileExists('frontend/package.json') } }
-      steps {
-        dir('frontend') {
-          bat '''
-            call npm ci
-            call npm run build
-          '''
-        }
-      }
-      post {
-        success { archiveArtifacts artifacts: 'frontend/dist/**, frontend/build/**', fingerprint: true }
       }
     }
   }
 
   post {
-    success { echo 'Pipeline OK (analyse envoyée à SonarCloud)' }
+    success { echo 'Pipeline OK → analyse envoyée à SonarCloud' }
     failure { echo 'Pipeline KO' }
   }
 }
