@@ -10,7 +10,7 @@ pipeline {
   environment {
     ORG          = 'zinebmouman'            // ex: ibt2
     PROJECT_KEY  = 'zinebmouman_resevation_devices'    // ex: reservation_devices
-    SONAR_TOKEN  = credentials('SONAR_TOKEN') // Secret Text avec le token SonarCloud
+    SONAR_TOKEN  = credentials('SONAR_TOKEN3') // Secret Text avec le token SonarCloud
     MAVEN_OPTS   = '-Xmx1024m'
   }
 
