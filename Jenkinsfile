@@ -28,14 +28,21 @@ pipeline {
     }
 
     stage('SonarQube Analysis (backend)') {
-      steps {
-        dir('backend') {
-          withSonarQubeEnv('sonarqube') {
-            bat 'mvn -B sonar:sonar -Dsonar.projectKey=reservation -Dsonar.projectName=ReservationApp'
-          }
+    steps {
+      dir('backend') {
+        withSonarQubeEnv('sonarqube') {
+          bat """
+            mvn -B -e sonar:sonar ^
+              -Dsonar.projectKey=reservation ^
+              -Dsonar.projectName=ReservationApp ^
+              -Dsonar.host.url=%SONAR_HOST_URL% ^
+              -Dsonar.token=%SONAR_AUTH_TOKEN%
+          """
         }
       }
     }
+  }
+
 
     stage('Quality Gate') {
       steps {
