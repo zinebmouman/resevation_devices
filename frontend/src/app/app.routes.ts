@@ -7,7 +7,6 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MainComponent } from './admin/main/main.component';
 import { ProductsComponent } from './admin/products/products.component';
-
 import { LogoutComponent } from './admin/logout/logout.component';
 import { authGuard } from './auth.guard';
 import { DepartmentsComponent } from './admin/departments/departments.component';
@@ -19,17 +18,20 @@ export const routes: Routes = [
   { path: 'products', component: ProductsComponent2 },
   { path: 'settings', component: SettingsComponent },
   { path: 'pages', component: PagesComponent },
-  { path: 'Auth', redirectTo: 'Auth/register', pathMatch: 'full' }, 
-  { path: 'Auth/login', component: LoginComponent },
-  { path: 'Auth/register', component: RegisterComponent },
+
+  // --- auth en minuscules
+  { path: 'auth', redirectTo: 'auth/register', pathMatch: 'full' },
+  { path: 'auth/login', component: LoginComponent },
+  { path: 'auth/register', component: RegisterComponent },
+
   {
     path: 'admin',
-    component: MainComponent, 
+    component: MainComponent,
     canActivate: [authGuard],
     children: [
-      { path: '', redirectTo: 'reservation', pathMatch: 'full' },
+      { path: '', redirectTo: 'reservations', pathMatch: 'full' },
       { path: 'products', component: ProductsComponent },
-      { path: 'reservations', component:ReservationsComponent },
+      { path: 'reservations', component: ReservationsComponent },
       { path: 'departments', component: DepartmentsComponent },
       { path: 'logout', component: LogoutComponent },
     ],

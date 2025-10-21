@@ -6,9 +6,12 @@
         <h5 class="card-title mb-4">Sign In</h5>
 
         <!-- Display validation, error, or success messages -->
-        <p *ngIf="validationErrors.length > 0" class="text-center">
-          <small class="text-danger">{{ validationErrors.join(', ') }}</small>
-        </p>
+        <!-- Messages en haut du formulaire -->
+        <p *ngIf="successMessage" class="text-success text-center">{{ successMessage }}</p>
+        <p *ngIf="errorMessage" class="text-danger text-center">{{ errorMessage }}</p>
+
+        <!-- le reste de ton formulaire inchangé -->
+
         <p *ngIf="errorMessage" class="text-center">
           <small class="text-danger">{{ errorMessage }}</small>
         </p>

@@ -12,42 +12,26 @@ import { RouterModule } from '@angular/router';
 export class LeftSidebarComponent {
   isLeftSidebarCollapsed = input.required<boolean>();
   changeIsLeftSidebarCollapsed = output<boolean>();
+
   items = [
+    { routeLink: '/dashboard', icon: 'fal fa-home',     label: 'Dashboard' },
+    { routeLink: '/products',  icon: 'fal fa-box-open', label: 'Products'  },
+    { routeLink: '/pages',     icon: 'fal fa-file',     label: 'Pages'     },
+    { routeLink: '/settings',  icon: 'fal fa-cog',      label: 'Settings'  },
     {
-      routeLink: 'dashboard',
-      icon: 'fal fa-home',
-      label: 'Dashboard',
+      routeLink: '/auth',
+      icon: 'fal fa-user-lock',
+      label: 'Auth',
+      subItems: [
+        { routeLink: '/auth/login',    label: 'Login'    },
+        { routeLink: '/auth/register', label: 'Register' },
+      ],
     },
-    {
-      routeLink: 'products',
-      icon: 'fal fa-box-open',
-      label: 'Products',
-    },
-    {
-      routeLink: 'pages',
-      icon: 'fal fa-file',
-      label: 'Pages',
-    },
-    {
-      routeLink: 'settings',
-      icon: 'fal fa-cog',
-      label: 'Settings',
-    },
-    {
-    routeLink: 'Auth',
-    icon: 'fal fa-user-lock',
-    label: 'Auth',
-    subItems: [
-      { routeLink: 'Auth/login', label: 'login' },
-      { routeLink: 'Auth/register', label: 'register' }
-    ]}
-   
   ];
 
   toggleCollapse(): void {
     this.changeIsLeftSidebarCollapsed.emit(!this.isLeftSidebarCollapsed());
   }
-
   closeSidenav(): void {
     this.changeIsLeftSidebarCollapsed.emit(true);
   }

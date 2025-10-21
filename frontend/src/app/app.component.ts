@@ -1,39 +1,40 @@
-import { Component, HostListener, OnInit, signal } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { LeftSidebarAdminComponent } from './admin/left-sidebar-admin/left-sidebar-admin.component';
-import { LeftSidebarComponent } from './left-sidebar/left-sidebar.component';
-import { MainComponent } from './main/main.component';
-import { AuthComponent } from './auth/auth.component';
-import { AdminModule } from './admin/admin/admin.module';
+import { Component, HostListener, OnInit, signal, inject } from '@angular/core';
+import { Router, RouterModule, NavigationEnd } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { authGuard } from './auth.guard';
+import { LeftSidebarComponent } from './left-sidebar/left-sidebar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, LeftSidebarComponent, LeftSidebarAdminComponent, MainComponent, AuthComponent, AdminModule, RouterModule],
+  imports: [CommonModule, RouterModule, LeftSidebarComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  isLeftSidebarCollapsed = signal<boolean>(false);
+  private router = inject(Router);
+
+  isLeftSidebarCollapsed = signal(false);
   screenWidth = signal<number>(window.innerWidth);
   isAdminPage = signal<boolean>(false);
 
   @HostListener('window:resize')
   onResize() {
     this.screenWidth.set(window.innerWidth);
-    if (this.screenWidth() < 768) {
-      this.isLeftSidebarCollapsed.set(true);
-    }
+    if (this.screenWidth() < 768) this.isLeftSidebarCollapsed.set(true);
   }
 
   ngOnInit(): void {
     this.isLeftSidebarCollapsed.set(this.screenWidth() < 768);
-    this.isAdminPage.set(window.location.pathname.includes('/admin'));
+
+    // détecte si on est sur /admin...
+    const evalAdmin = (url: string) => this.isAdminPage.set(url.startsWith('/admin'));
+    evalAdmin(this.router.url);
+    this.router.events.subscribe(ev => {
+      if (ev instanceof NavigationEnd) evalAdmin(ev.urlAfterRedirects);
+    });
   }
 
-  changeIsLeftSidebarCollapsed(isLeftSidebarCollapsed: boolean): void {
-    this.isLeftSidebarCollapsed.set(isLeftSidebarCollapsed);
+  changeIsLeftSidebarCollapsed(v: boolean) {
+    this.isLeftSidebarCollapsed.set(v);
   }
 }

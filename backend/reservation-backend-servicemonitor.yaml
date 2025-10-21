@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: reservation-backend
+  namespace: reservation
+  labels:
+    release: kube-prometheus-stack     # DOIT matcher le nom de ta release Helm
+spec:
+  namespaceSelector:
+    matchNames: ["reservation"]
+  selector:
+    matchLabels:
+      app: reservation-backend         # DOIT matcher le label du Service
+  endpoints:
+    - port: http                       # DOIT matcher .spec.ports[0].name du Service
+      path: /actuator/prometheus
+      interval: 15s
+      scheme: http

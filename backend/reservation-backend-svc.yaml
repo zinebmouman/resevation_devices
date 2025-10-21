@@ -1,0 +1,20 @@
+# servicemonitor-reservation-backend.yaml
+  kubectl apply -f - <<'YAML'
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: reservation-backend
+  namespace: monitoring
+  labels:
+    release: kube-prometheus-stack   # doit matcher le nom de release Helm
+spec:
+  namespaceSelector:
+    matchNames: [reservation]
+  selector:
+    matchLabels:
+      app: reservation-backend       # même label que ton Service
+  endpoints:
+    - port: http                     # nom du port du Service (kubectl -n reservation get svc -oyaml)
+      path: /actuator/prometheus
+      interval: 15s
+  YAML

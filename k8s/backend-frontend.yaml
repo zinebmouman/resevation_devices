@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: reservation-backend
+  namespace: reservation
+spec:
+  type: ClusterIP
+  selector:
+    app: reservation-backend
+  ports:
+    - port: 8080
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reservation-backend
+  namespace: reservation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reservation-backend
+  template:
+    metadata:
+      labels:
+        app: reservation-backend
+    spec:
+      containers:
+        - name: backend
+          image: resevation_devices-backend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            # Spring Boot lit ces variables automatiquement
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://postgres.reservation.svc.cluster.local:5432/reservationdb
+            - name: SPRING_DATASOURCE_USERNAME
+              value: reservation
+            - name: SPRING_DATASOURCE_PASSWORD
+              value: reservation
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reservation-frontend
+  namespace: reservation
+spec:
+  type: NodePort
+  selector:
+    app: reservation-frontend
+  ports:
+    - port: 80
+      targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reservation-frontend
+  namespace: reservation
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reservation-frontend
+  template:
+    metadata:
+      labels:
+        app: reservation-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: resevation_devices-frontend:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80

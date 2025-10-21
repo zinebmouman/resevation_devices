@@ -1,14 +1,11 @@
 <div class="app-container">
-  <app-left-sidebar 
-  *ngIf="!isAdminPage()" 
-  [isLeftSidebarCollapsed]="isLeftSidebarCollapsed()" 
-  (changeIsLeftSidebarCollapsed)="changeIsLeftSidebarCollapsed($event)">
-</app-left-sidebar>
+  <!-- Sidebar "utilisateur" seulement hors /admin -->
+  <app-left-sidebar
+    *ngIf="!isAdminPage()"
+    [isLeftSidebarCollapsed]="isLeftSidebarCollapsed()"
+    (changeIsLeftSidebarCollapsed)="changeIsLeftSidebarCollapsed($event)">
+  </app-left-sidebar>
 
-  
+  <!-- Zone où les pages s’affichent -->
   <router-outlet></router-outlet>
 </div>
-
-
-
-
